@@ -23,5 +23,7 @@ Example of implementations a simple Django app with Celery tasks, RabbitMQ and F
 1. Clone the repository
 2. Install docker and docker-compose
 3. Run `docker-compose up --build`
-4. Open http://0.0.0.0:8888/docs in your browser to see the Swagger UI
-5. Open http://0.0.0.0:5556/ in your browser to see the Flower UI
+4. Open http://0.0.0.0:8888 in your browser to see the Swagger UI
+   4.1. Click on the button 1 to run the SimpleTask1
+   4.2. Click on the button 2 to run the SimpleTask2
+5. Open http://0.0.0.0:5556 in your browser to see the Flower UI
