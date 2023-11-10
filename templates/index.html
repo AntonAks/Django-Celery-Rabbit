@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Template</title>
+</head>
+<body>
+    <h1>Main Template</h1>
+    <hr>
+    <form method="post" action="{% url 'view1' %}">
+        {% csrf_token %}
+        <button type="submit">Button 1</button>
+    </form>
+    <hr>
+    <form method="post" action="{% url 'view2' %}">
+        {% csrf_token %}
+        <button type="submit">Button 2</button>
+    </form>
+    <hr>
+{% if button1 %}
+    <p>Button 1 was clicked</p>
+{% endif %}
+
+{% if button2 %}
+    <p>Button 2 was clicked</p>
+{% endif %}
+
+</body>
+</html>

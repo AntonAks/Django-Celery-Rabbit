@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  app:
+    container_name: app
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    restart: always
+
+
+  worker1:
+    container_name: worker1
+    build: .
+    command: celery -A DjangoCeleryExample worker -B -l info -Q queue1
+    volumes:
+      - .:/app
+    depends_on:
+      - app
+      - rabbitmq
+
+  worker2:
+    container_name: worker2
+    build: .
+    command: celery -A DjangoCeleryExample worker -l info -Q queue2
+    volumes:
+      - .:/app
+    depends_on:
+      - app
+      - rabbitmq
+
+  worker3:
+    container_name: worker3
+    build: .
+    command: celery -A DjangoCeleryExample worker -B -l info
+    volumes:
+      - .:/app
+    depends_on:
+      - app
+      - rabbitmq
+
+  rabbitmq:
+    image: "rabbitmq"
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    depends_on:
+      - app
+
+  flower:
+    container_name: flower
+    build: .
+    command: celery -A DjangoCeleryExample flower --port=5555
+    volumes:
+      - .:/app
+    ports:
+      - "5556:5555"
+    depends_on:
+      - rabbitmq
